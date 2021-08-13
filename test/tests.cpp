@@ -5,6 +5,7 @@
 
 TEST_CASE("Matrix")
 {
-    ov::Matrix matrix;
-    (void)matrix;
+    ov::Matrix matrix{1, 2};
+    REQUIRE(matrix.getWidth() == 1);
+    REQUIRE(matrix.getHeight() == 2);
 }

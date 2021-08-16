@@ -22,13 +22,15 @@ namespace ov
                 }
         }
         
-        Matrix(std::size_t w, std::size_t h):
+        Matrix(std::size_t w, std::size_t h, std::size_t c = 1):
             width{w},
-            height{h}
+            height{h},
+            channels{c}
         {}
         
         auto getWidth() const noexcept { return width; }
         auto getHeight() const noexcept { return height; }
+        auto getChannels() const noexcept { return channels; }
         
     private:
         enum class Format

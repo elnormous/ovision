@@ -5,7 +5,8 @@
 
 TEST_CASE("Matrix")
 {
-    ov::Matrix matrix{1, 2};
+    ov::Matrix matrix{1, 2, 3};
     REQUIRE(matrix.getWidth() == 1);
     REQUIRE(matrix.getHeight() == 2);
+    REQUIRE(matrix.getChannels() == 3);
 }

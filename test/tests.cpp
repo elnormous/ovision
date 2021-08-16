@@ -5,7 +5,7 @@
 
 TEST_CASE("Matrix constructor")
 {
-    ov::Matrix matrix{1, 2, 3};
+    ov::Matrix<int> matrix{1, 2, 3};
     REQUIRE(matrix.getWidth() == 1);
     REQUIRE(matrix.getHeight() == 2);
     REQUIRE(matrix.getChannels() == 3);
@@ -13,8 +13,8 @@ TEST_CASE("Matrix constructor")
 
 TEST_CASE("Matrix move construction")
 {
-    ov::Matrix matrix{1, 2, 3};
-    ov::Matrix other = std::move(matrix);
+    ov::Matrix<int> matrix{1, 2, 3};
+    ov::Matrix<int> other = std::move(matrix);
     
     REQUIRE(matrix.getWidth() == 0);
     REQUIRE(matrix.getHeight() == 0);
@@ -27,8 +27,8 @@ TEST_CASE("Matrix move construction")
 
 TEST_CASE("Matrix move assignment")
 {
-    ov::Matrix matrix{1, 2, 3};
-    ov::Matrix other;
+    ov::Matrix<int> matrix{1, 2, 3};
+    ov::Matrix<int> other;
     other = std::move(matrix);
     
     REQUIRE(matrix.getWidth() == 0);

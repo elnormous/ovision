@@ -1,5 +1,6 @@
 namespace ov
 {
+    template <class T>
     class Matrix final
     {
     public:
@@ -13,36 +14,32 @@ namespace ov
         
         ~Matrix()
         {
-            deallocate();
+            delete [] data;
         }
         
         Matrix(Matrix&& other) noexcept:
             width{other.width},
             height{other.height},
-            format{other.format},
             channels{other.channels},
             data{other.data}
         {
             other.width = 0;
             other.height = 0;
-            other.format = Format::none;
             other.channels = 0;
             other.data = nullptr;
         }
         
         Matrix& operator=(Matrix&& other) noexcept
         {
-            deallocate();
+            delete [] data;
             
             width = other.width;
             height = other.height;
-            format = other.format;
             channels = other.channels;
             data = other.data;
             
             other.width = 0;
             other.height = 0;
-            other.format = Format::none;
             other.channels = 0;
             other.data = nullptr;
             
@@ -54,40 +51,9 @@ namespace ov
         auto getChannels() const noexcept { return channels; }
         
     private:
-        void deallocate()
-        {
-            if (data)
-                switch (format)
-                {
-                    case Format::none: break;
-                    case Format::float32: delete [] static_cast<float*>(data); break;
-                    case Format::float64: delete [] static_cast<double*>(data); break;
-                    case Format::int8: delete [] static_cast<std::int8_t*>(data); break;
-                    case Format::int16: delete [] static_cast<std::int16_t*>(data); break;
-                    case Format::int32: delete [] static_cast<std::int32_t*>(data); break;
-                    case Format::uint8: delete [] static_cast<std::uint8_t*>(data); break;
-                    case Format::uint16: delete [] static_cast<std::uint16_t*>(data); break;
-                    case Format::uint32: delete [] static_cast<std::uint32_t*>(data); break;
-                }
-        }
-        
-        enum class Format
-        {
-            none,
-            float32,
-            float64,
-            int8,
-            int16,
-            int32,
-            uint8,
-            uint16,
-            uint32
-        };
-        
         std::size_t width = 0;
         std::size_t height = 0;
-        Format format = Format::none;
         std::size_t channels = 0;
-        void* data = nullptr;
+        T* data = nullptr;
     };
 }

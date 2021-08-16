@@ -3,7 +3,13 @@ namespace ov
     class Matrix final
     {
     public:
-        Matrix() = default;
+        Matrix() noexcept = default;
+        
+        Matrix(std::size_t w, std::size_t h, std::size_t c = 1):
+            width{w},
+            height{h},
+            channels{c}
+        {}
         
         ~Matrix()
         {
@@ -22,11 +28,19 @@ namespace ov
                 }
         }
         
-        Matrix(std::size_t w, std::size_t h, std::size_t c = 1):
-            width{w},
-            height{h},
-            channels{c}
-        {}
+        Matrix(Matrix&& other) noexcept:
+            width{other.width},
+            height{other.height},
+            format{other.format},
+            channels{other.channels},
+            data{other.data}
+        {
+            other.width = 0;
+            other.height = 0;
+            other.format = Format::none;
+            other.channels = 0;
+            other.data = nullptr;
+        }
         
         auto getWidth() const noexcept { return width; }
         auto getHeight() const noexcept { return height; }

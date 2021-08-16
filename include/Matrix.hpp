@@ -13,19 +13,7 @@ namespace ov
         
         ~Matrix()
         {
-            if (data)
-                switch (format)
-                {
-                    case Format::none: break;
-                    case Format::float32: delete [] static_cast<float*>(data); break;
-                    case Format::float64: delete [] static_cast<double*>(data); break;
-                    case Format::int8: delete [] static_cast<std::int8_t*>(data); break;
-                    case Format::int16: delete [] static_cast<std::int16_t*>(data); break;
-                    case Format::int32: delete [] static_cast<std::int32_t*>(data); break;
-                    case Format::uint8: delete [] static_cast<std::uint8_t*>(data); break;
-                    case Format::uint16: delete [] static_cast<std::uint16_t*>(data); break;
-                    case Format::uint32: delete [] static_cast<std::uint32_t*>(data); break;
-                }
+            deallocate();
         }
         
         Matrix(Matrix&& other) noexcept:
@@ -42,11 +30,47 @@ namespace ov
             other.data = nullptr;
         }
         
+        Matrix& operator=(Matrix&& other) noexcept
+        {
+            deallocate();
+            
+            width = other.width;
+            height = other.height;
+            format = other.format;
+            channels = other.channels;
+            data = other.data;
+            
+            other.width = 0;
+            other.height = 0;
+            other.format = Format::none;
+            other.channels = 0;
+            other.data = nullptr;
+            
+            return *this;
+        }
+        
         auto getWidth() const noexcept { return width; }
         auto getHeight() const noexcept { return height; }
         auto getChannels() const noexcept { return channels; }
         
     private:
+        void deallocate()
+        {
+            if (data)
+                switch (format)
+                {
+                    case Format::none: break;
+                    case Format::float32: delete [] static_cast<float*>(data); break;
+                    case Format::float64: delete [] static_cast<double*>(data); break;
+                    case Format::int8: delete [] static_cast<std::int8_t*>(data); break;
+                    case Format::int16: delete [] static_cast<std::int16_t*>(data); break;
+                    case Format::int32: delete [] static_cast<std::int32_t*>(data); break;
+                    case Format::uint8: delete [] static_cast<std::uint8_t*>(data); break;
+                    case Format::uint16: delete [] static_cast<std::uint16_t*>(data); break;
+                    case Format::uint32: delete [] static_cast<std::uint32_t*>(data); break;
+                }
+        }
+        
         enum class Format
         {
             none,

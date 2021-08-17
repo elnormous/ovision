@@ -9,7 +9,8 @@ namespace ov
         Matrix(std::size_t w, std::size_t h, std::size_t c = 1):
             width{w},
             height{h},
-            channels{c}
+            channels{c},
+            data{new T[w * h * c]()}
         {}
         
         ~Matrix()

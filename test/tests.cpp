@@ -40,7 +40,7 @@ TEST_CASE("Matrix move assignment")
     REQUIRE(other.getChannels() == 3);
 }
 
-TEST_CASE("Matrix range loop")
+TEST_CASE("Matrix const range loop")
 {
     const ov::Matrix<int> matrix{1, 2, 3};
     
@@ -52,5 +52,29 @@ TEST_CASE("Matrix range loop")
         ++count;
     }
     
+    REQUIRE(count == 6);
+}
+
+TEST_CASE("Matrix range loop")
+{
+    const ov::Matrix<int> matrix{1, 2, 3};
+    
+    std::size_t count = 0;
+    
+    for (int& v : matrix)
+    {
+        v = static_cast<int>(count);
+        ++count;
+    }
+    
+    REQUIRE(count == 6);
+    count = 0;
+    
+    for (int v : matrix)
+    {
+        REQUIRE(v == static_cast<int>(count));
+        ++count;
+    }
+
     REQUIRE(count == 6);
 }

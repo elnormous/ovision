@@ -47,12 +47,22 @@ namespace ov
             return *this;
         }
 
-        const T* begin() const noexcept
+        auto begin() const noexcept
         {
             return data;
         }
         
-        const T* end() const noexcept
+        auto end() const noexcept
+        {
+            return data + width * height * channels;
+        }
+        
+        auto begin() noexcept
+        {
+            return data;
+        }
+        
+        auto end() noexcept
         {
             return data + width * height * channels;
         }

@@ -10,7 +10,7 @@ namespace ov
             width{w},
             height{h},
             channels{c},
-            data{new T[w * h * c]()}
+            data{new T[w * h * c]{}}
         {}
         
         ~Matrix()
@@ -46,7 +46,17 @@ namespace ov
             
             return *this;
         }
+
+        const T* begin() const noexcept
+        {
+            return data;
+        }
         
+        const T* end() const noexcept
+        {
+            return data + width * height * channels;
+        }
+
         auto getWidth() const noexcept { return width; }
         auto getHeight() const noexcept { return height; }
         auto getChannels() const noexcept { return channels; }

@@ -5,7 +5,7 @@
 
 TEST_CASE("Matrix constructor")
 {
-    ov::Matrix<int> matrix{1, 2, 3};
+    const ov::Matrix<int> matrix{1, 2, 3};
     REQUIRE(matrix.getWidth() == 1);
     REQUIRE(matrix.getHeight() == 2);
     REQUIRE(matrix.getChannels() == 3);
@@ -38,4 +38,19 @@ TEST_CASE("Matrix move assignment")
     REQUIRE(other.getWidth() == 1);
     REQUIRE(other.getHeight() == 2);
     REQUIRE(other.getChannels() == 3);
+}
+
+TEST_CASE("Matrix range loop")
+{
+    const ov::Matrix<int> matrix{1, 2, 3};
+    
+    std::size_t count = 0;
+    
+    for (int v : matrix)
+    {
+        REQUIRE(v == 0);
+        ++count;
+    }
+    
+    REQUIRE(count == 6);
 }

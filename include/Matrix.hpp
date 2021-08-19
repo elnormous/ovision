@@ -1,3 +1,5 @@
+#include <algorithm>
+
 namespace ov
 {
     template <class T>
@@ -16,6 +18,17 @@ namespace ov
         ~Matrix()
         {
             delete [] data;
+        }
+        
+        Matrix(const Matrix& other) noexcept:
+            width{other.width},
+            height{other.height},
+            channels{other.channels},
+            data{new T[other.width * other.height * other.channels]}
+        {
+            std::copy(other.data,
+                      other.data + other.width * other.height * other.channels,
+                      data);
         }
         
         Matrix(Matrix&& other) noexcept:

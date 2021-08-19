@@ -20,7 +20,7 @@ namespace ov
             delete [] data;
         }
 
-        Matrix(const Matrix& other) noexcept:
+        Matrix(const Matrix& other):
             width{other.width},
             height{other.height},
             channels{other.channels},
@@ -43,7 +43,7 @@ namespace ov
             other.data = nullptr;
         }
 
-        Matrix& operator=(const Matrix& other) noexcept
+        Matrix& operator=(const Matrix& other)
         {
             delete [] data;
 

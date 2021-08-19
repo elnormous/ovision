@@ -75,29 +75,29 @@ namespace ov
             return *this;
         }
 
-        auto begin() const noexcept
+        [[nodiscard]] auto begin() const noexcept
         {
             return data;
         }
 
-        auto end() const noexcept
+        [[nodiscard]] auto end() const noexcept
         {
             return data + width * height * channels;
         }
 
-        auto begin() noexcept
+        [[nodiscard]] auto begin() noexcept
         {
             return data;
         }
 
-        auto end() noexcept
+        [[nodiscard]] auto end() noexcept
         {
             return data + width * height * channels;
         }
 
-        auto getWidth() const noexcept { return width; }
-        auto getHeight() const noexcept { return height; }
-        auto getChannels() const noexcept { return channels; }
+        [[nodiscard]] auto getWidth() const noexcept { return width; }
+        [[nodiscard]] auto getHeight() const noexcept { return height; }
+        [[nodiscard]] auto getChannels() const noexcept { return channels; }
 
     private:
         std::size_t width = 0;

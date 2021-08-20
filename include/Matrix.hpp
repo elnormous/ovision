@@ -15,6 +15,14 @@ namespace ov
             data{new T[w * h * c]{}}
         {}
 
+        template <typename ...A>
+        Matrix(std::size_t w, std::size_t h, std::size_t c, const A... args):
+            width{w},
+            height{h},
+            channels{c},
+            data{new T[w * h * c]{args...}}
+        {}
+
         ~Matrix()
         {
             delete [] data;

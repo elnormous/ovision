@@ -25,6 +25,25 @@ TEST_CASE("Matrix move construction")
     REQUIRE(other.getChannels() == 3);
 }
 
+TEST_CASE("Matrix value construction")
+{
+    ov::Matrix<int> matrix{1, 2, 1, 3, 4};
+
+    REQUIRE(matrix.getWidth() == 1);
+    REQUIRE(matrix.getHeight() == 2);
+    REQUIRE(matrix.getChannels() == 1);
+
+    std::size_t count = 0;
+
+    for (int v : matrix)
+    {
+        REQUIRE(v == static_cast<int>(count + 3));
+        ++count;
+    }
+
+    REQUIRE(count == 2);
+}
+
 TEST_CASE("Matrix move assignment")
 {
     ov::Matrix<int> matrix{1, 2, 3};
@@ -131,3 +150,4 @@ TEST_CASE("Matrix assignment")
 
     REQUIRE(count == 6);
 }
+

@@ -27,21 +27,23 @@ TEST_CASE("Matrix move construction")
 
 TEST_CASE("Matrix value construction")
 {
-    ov::Matrix<int> matrix{1, 2, 1, 3, 4};
+    const ov::Matrix<int> matrix{1, 2, 3,
+        0, 1, 2, 3, 4, 5
+    };
 
     REQUIRE(matrix.getWidth() == 1);
     REQUIRE(matrix.getHeight() == 2);
-    REQUIRE(matrix.getChannels() == 1);
+    REQUIRE(matrix.getChannels() == 3);
 
     std::size_t count = 0;
 
     for (int v : matrix)
     {
-        REQUIRE(v == static_cast<int>(count + 3));
+        REQUIRE(v == static_cast<int>(count));
         ++count;
     }
 
-    REQUIRE(count == 2);
+    REQUIRE(count == 6);
 }
 
 TEST_CASE("Matrix move assignment")
@@ -100,21 +102,13 @@ TEST_CASE("Matrix range loop")
 
 TEST_CASE("Matrix copy constructor")
 {
-    ov::Matrix<int> matrix{1, 2, 3};
-
-    std::size_t count = 0;
-
-    for (int& v : matrix)
-    {
-        v = static_cast<int>(count);
-        ++count;
-    }
-
-    REQUIRE(count == 6);
-    count = 0;
+    const ov::Matrix<int> matrix{1, 2, 3,
+        0, 1, 2, 3, 4, 5
+    };
 
     const ov::Matrix<int> matrix2 = matrix;
 
+    std::size_t count = 0;
     for (int v : matrix2)
     {
         REQUIRE(v == static_cast<int>(count));
@@ -126,21 +120,14 @@ TEST_CASE("Matrix copy constructor")
 
 TEST_CASE("Matrix assignment")
 {
-    ov::Matrix<int> matrix{1, 2, 3};
-
-    std::size_t count = 0;
-
-    for (int& v : matrix)
-    {
-        v = static_cast<int>(count);
-        ++count;
-    }
-
-    REQUIRE(count == 6);
-    count = 0;
+    const ov::Matrix<int> matrix{1, 2, 3,
+        0, 1, 2, 3, 4, 5
+    };
 
     ov::Matrix<int> matrix2;
     matrix2 = matrix;
+
+    std::size_t count = 0;
 
     for (int v : matrix2)
     {

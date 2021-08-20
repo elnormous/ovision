@@ -76,7 +76,7 @@ TEST_CASE("Matrix const range loop")
 
 TEST_CASE("Matrix range loop")
 {
-    const ov::Matrix<int> matrix{1, 2, 3};
+    ov::Matrix<int> matrix{1, 2, 3};
 
     std::size_t count = 0;
 
@@ -100,7 +100,7 @@ TEST_CASE("Matrix range loop")
 
 TEST_CASE("Matrix copy constructor")
 {
-    const ov::Matrix<int> matrix{1, 2, 3};
+    ov::Matrix<int> matrix{1, 2, 3};
 
     std::size_t count = 0;
 
@@ -126,7 +126,7 @@ TEST_CASE("Matrix copy constructor")
 
 TEST_CASE("Matrix assignment")
 {
-    const ov::Matrix<int> matrix{1, 2, 3};
+    ov::Matrix<int> matrix{1, 2, 3};
 
     std::size_t count = 0;
 
@@ -150,4 +150,3 @@ TEST_CASE("Matrix assignment")
 
     REQUIRE(count == 6);
 }
-

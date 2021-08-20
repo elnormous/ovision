@@ -3,6 +3,35 @@
 namespace ov
 {
     template <class T>
+    class Iterator final
+    {
+    public:
+        Iterator(T* v) noexcept: value{v} {}
+
+        [[nodiscard]] bool operator==(const Iterator& other) const noexcept { return value == other.value; }
+        [[nodiscard]] bool operator!=(const Iterator& other) const noexcept { return value != other.value; }
+
+        [[nodiscard]] T& operator*() noexcept { return *value; }
+        [[nodiscard]] const T& operator*() const noexcept { return *value; }
+
+        [[nodiscard]] Iterator& operator++() noexcept
+        {
+            value++;
+            return *this;
+        }
+
+        [[nodiscard]] Iterator& operator++(int) noexcept
+        {
+            auto result = *this;
+            value++;
+            return result;
+        }
+
+    private:
+        T* value;
+    };
+
+    template <class T>
     class Matrix final
     {
     public:
@@ -85,22 +114,22 @@ namespace ov
 
         [[nodiscard]] auto begin() const noexcept
         {
-            return data;
+            return Iterator<const T>{data};
         }
 
         [[nodiscard]] auto end() const noexcept
         {
-            return data + width * height * channels;
+            return Iterator<const T>{data + width * height * channels};
         }
 
         [[nodiscard]] auto begin() noexcept
         {
-            return data;
+            return Iterator<T>{data};
         }
 
         [[nodiscard]] auto end() noexcept
         {
-            return data + width * height * channels;
+            return Iterator<T>{data + width * height * channels};
         }
 
         [[nodiscard]] auto getWidth() const noexcept { return width; }

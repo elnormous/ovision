@@ -146,6 +146,16 @@ namespace ov
             return std::equal(data, data + width * height * channels, other.data);
         }
 
+        [[nodiscard]] bool operator!=(const Matrix& other) const noexcept
+        {
+            if (width != other.width ||
+                height != other.height ||
+                channels != other.channels)
+                return true;
+
+            return !std::equal(data, data + width * height * channels, other.data);
+        }
+
     private:
         std::size_t width = 0;
         std::size_t height = 0;

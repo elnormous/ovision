@@ -149,6 +149,7 @@ TEST_CASE("Matrix comparison equal")
     };
 
     REQUIRE(matrix1 == matrix2);
+    REQUIRE_FALSE(matrix1 != matrix2);
 }
 
 TEST_CASE("Matrix comparison different size")
@@ -162,4 +163,19 @@ TEST_CASE("Matrix comparison different size")
     };
 
     REQUIRE_FALSE(matrix1 == matrix2);
+    REQUIRE(matrix1 != matrix2);
+}
+
+TEST_CASE("Matrix comparison different values")
+{
+    const ov::Matrix<int> matrix1{1, 2, 3,
+        0, 1, 2, 3, 0, 1
+    };
+
+    const ov::Matrix<int> matrix2{1, 2, 3,
+        0, 1, 2, 3, 4, 5
+    };
+
+    REQUIRE_FALSE(matrix1 == matrix2);
+    REQUIRE(matrix1 != matrix2);
 }

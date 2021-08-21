@@ -136,6 +136,16 @@ namespace ov
         [[nodiscard]] auto getHeight() const noexcept { return height; }
         [[nodiscard]] auto getChannels() const noexcept { return channels; }
 
+        [[nodiscard]] bool operator==(const Matrix& other) const noexcept
+        {
+            if (width != other.width ||
+                height != other.height ||
+                channels != other.channels)
+                return false;
+
+            return std::equal(data, data + width * height * channels, other.data);
+        }
+
     private:
         std::size_t width = 0;
         std::size_t height = 0;

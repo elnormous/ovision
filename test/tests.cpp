@@ -137,3 +137,29 @@ TEST_CASE("Matrix assignment")
 
     REQUIRE(count == 6);
 }
+
+TEST_CASE("Matrix comparison equal")
+{
+    const ov::Matrix<int> matrix1{1, 2, 3,
+        0, 1, 2, 3, 4, 5
+    };
+
+    const ov::Matrix<int> matrix2{1, 2, 3,
+        0, 1, 2, 3, 4, 5
+    };
+
+    REQUIRE(matrix1 == matrix2);
+}
+
+TEST_CASE("Matrix comparison different size")
+{
+    const ov::Matrix<int> matrix1{1, 2, 2,
+        0, 1, 2, 3
+    };
+
+    const ov::Matrix<int> matrix2{1, 2, 3,
+        0, 1, 2, 3, 4, 5
+    };
+
+    REQUIRE_FALSE(matrix1 == matrix2);
+}
